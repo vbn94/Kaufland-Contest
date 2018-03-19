@@ -1,5 +1,3 @@
-// Bar Star
-
 #include <iostream>
 #include <string>
 
@@ -7,49 +5,53 @@ using namespace std;
 
 int main()
 {
+
+    int beersBottles = 200;
+    int winesBottles = 300;
+    int beersOrder = 0;
+    int beersDelivery = 0;
+    int winesDelivery = 0;
+    int winesOrder = 0;
     string input;
-    int ordersBeer = 0;
-    int deliveriesBeer = 0;
-    int ordersWine = 0;
-    int deliveriesWine = 0;
-    int beers = 200;
-    int wines = 300;
-    
+
     while(true)
     {
         cin >> input;
-        if(input.find("Beers") != -1)
+        if(input == "END")
         {
-            int btls = stoi(input.substr(input.find(":") + 1, input.size()));
-            beers += btls;
-            if(btls > 0)
-                ordersBeer++;
-            else
-                deliveriesBeer++;
-        }
-        else if(input.find("Wines") != -1)
-        {
-            int btls = stoi(input.substr(input.find(":") + 1, input.size()));
-            wines += btls;
-            if(btls > 0)
-                ordersWine++;
-            else
-                deliveriesWine++;
-        }
-        else if(input.find("END") != -1)
-        {
-            cout << "Wines: " << wines << endl;
-            cout << "Deliveries: " << deliveriesWine << endl;
-            cout << "Orders: " << ordersWine << endl;
-            cout << "Beers: " << beers << endl;
-            cout << "Deliveries: " << deliveriesBeer << endl;
-            cout << "Orders: " << ordersBeer << endl;
             break;
         }
-        else
+
+        string drink = input.substr(0, input.find(":"));
+        int cnt = stoi(input.substr(input.find(":") + 1));
+        
+        if(drink == "Beers")
         {
-            cout << "Invalid input. Try again!" << endl;
+            beersBottles += cnt;
+            if(cnt > 0)
+                beersDelivery++;
+            else if(cnt < 0)
+                beersOrder++;
         }
+        else if (drink == "Wines")
+        {
+            winesBottles += cnt;
+            if(cnt > 0)
+                winesDelivery++;
+            else if(cnt < 0)
+                winesOrder++;
+        }
+        
     }
+    
+    cout << "Wines: " << winesBottles << endl;
+    cout << "Deliveries: " << winesDelivery << endl;
+    cout << "Orders: " << winesOrder << endl;
+    cout << "Beers: " << beersBottles << endl;
+    cout << "Deliveries: " << beersDelivery << endl;
+    cout << "Orders: " << beersOrder << endl;
+
+
     return 0;
 }
+
